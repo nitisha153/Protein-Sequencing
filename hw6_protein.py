@@ -17,7 +17,19 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    f = open(filename,'r')
+    text = f.read()
+    f.close()
+
+    text = text.splitlines()
+    #print(text)
+    text_1 = ""
+    for line in text:
+        text_1 += line
+    
+    
+    return text_1
+#print(readFile(("data/human_p53.txt"))
 
 
 '''
