@@ -70,7 +70,24 @@ Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
     import json
-    return
+    data = open(filename,'r')
+    dictionary = json.load(data)
+    data.close()
+    new_dict ={}
+    for element in dictionary:
+        codon_list = dictionary[element]
+        for codon in codon_list:
+            rna =""
+            for char in codon:
+                if char == "T":
+                    rna += "U"
+                else:
+                    rna += char
+            new_dict[rna] = element
+
+
+    #print(new_dict)
+    return new_dict
 
 
 '''
