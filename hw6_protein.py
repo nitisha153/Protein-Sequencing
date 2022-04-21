@@ -17,7 +17,19 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    f = open(filename,'r')
+    text = f.read()
+    f.close()
+
+    text = text.splitlines()
+    #print(text)
+    text_1 = ""
+    for line in text:
+        text_1 += line
+    
+    
+    return text_1
+#print(readFile(("data/human_p53.txt"))
 
 
 '''
@@ -27,7 +39,27 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    rna = ""
+    for char in dna:
+        if char == "T":
+            rna += "U"
+        else:
+            rna += char
+    stop_codons = ["UAA","UAG","UGA"]
+    rna_list = []
+    i = (len(dna)-startIndex)%3
+    j = len(dna) - i
+    for index in  range(startIndex,j,3):
+        codon = rna[index]+rna[index+1]+rna[index+2]
+        rna_list.append(codon)
+        if codon in stop_codons:
+            break
+
+
+
+        
+
+    return rna_list
 
 
 '''
