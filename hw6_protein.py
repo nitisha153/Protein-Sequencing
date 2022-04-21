@@ -343,8 +343,8 @@ def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
     width = 0.35  # the width of the bars
 
     fig, ax = plt.subplots()
-    rects1 = ax.bar(x - width/2, freqList1, width, label=label1)
-    rects2 = ax.bar(x + width/2, freqList2, width, label=label2)
+    rects1 = ax.bar(x - width/2, freqList1, width, label=label1, edgecolor = edgeList)
+    rects2 = ax.bar(x + width/2, freqList2, width, label=label2, edgecolor = edgeList)
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Frequency')
@@ -369,7 +369,19 @@ Parameters: list of strs ; 2D list of values
 Returns: list of strs
 '''
 def makeEdgeList(labels, biggestDiffs):
-    return
+    new_list = []
+    for element in biggestDiffs:
+        #print(element)
+        new_list.append(element[0])
+    edge_colour = []
+    for label in labels:
+        if label in new_list:
+            edge_colour.append("black")
+        else:
+            edge_colour.append("white")
+    
+
+    return edge_colour
 
 
 '''
