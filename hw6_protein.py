@@ -289,7 +289,19 @@ Parameters: 2D list of strs ; 2D list of strs
 Returns: list of strs
 '''
 def makeAminoAcidLabels(proteinList1, proteinList2):
-    return
+    a_acid1 = combineProteins(proteinList1)
+    a_acid2 = combineProteins(proteinList2)
+    aa_dict1 = aminoAcidDictionary(a_acid1)
+    aa_dict2 = aminoAcidDictionary(a_acid2)
+    labels = []
+    for amino_acid in aa_dict1:
+        if amino_acid not in labels:
+            labels.append(amino_acid)
+    for amino_acid in aa_dict2:
+        if amino_acid not in labels:
+            labels.append(amino_acid)
+    labels.sort()
+    return labels
 
 
 '''
@@ -344,16 +356,16 @@ if __name__ == "__main__":
 
     ## Uncomment these for Week 2 ##
 
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    runWeek2()
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # runWeek2()
     
 
     ## Uncomment these for Week 3 ##
-    """
+    
     print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
     test.week3Tests()
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
-    """
+    
