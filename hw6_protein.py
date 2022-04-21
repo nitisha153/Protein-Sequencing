@@ -17,7 +17,19 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    f = open(filename,'r')
+    text = f.read()
+    f.close()
+
+    text = text.splitlines()
+    #print(text)
+    text_1 = ""
+    for line in text:
+        text_1 += line
+    
+    
+    return text_1
+#print(readFile(("data/human_p53.txt"))
 
 
 '''
@@ -27,7 +39,27 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    rna = ""
+    for char in dna:
+        if char == "T":
+            rna += "U"
+        else:
+            rna += char
+    stop_codons = ["UAA","UAG","UGA"]
+    rna_list = []
+    i = (len(dna)-startIndex)%3
+    j = len(dna) - i
+    for index in  range(startIndex,j,3):
+        codon = rna[index]+rna[index+1]+rna[index+2]
+        rna_list.append(codon)
+        if codon in stop_codons:
+            break
+
+
+
+        
+
+    return rna_list
 
 
 '''
@@ -38,7 +70,24 @@ Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
     import json
-    return
+    data = open(filename,'r')
+    dictionary = json.load(data)
+    data.close()
+    new_dict ={}
+    for element in dictionary:
+        codon_list = dictionary[element]
+        for codon in codon_list:
+            rna =""
+            for char in codon:
+                if char == "T":
+                    rna += "U"
+                else:
+                    rna += char
+            new_dict[rna] = element
+
+
+    #print(new_dict)
+    return new_dict
 
 
 '''
@@ -48,7 +97,15 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
-    return
+    proteins = []
+    for index in range(len(codons)):
+        if index == 0:
+            proteins.append("Start")
+        else:
+            proteins.append(codonD[codons[index]])
+    
+    #print(proteins)
+    return proteins
 
 
 '''
@@ -58,7 +115,21 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
+    dna = readFile(dnaFilename)
+    codonD = makeCodonDictionary(codonFilename)
+    proteins = []
+    i = 0
+    while i < len(dna):
+        dna_string = dna[i:]
+        start_index = dna_string.find("ATG")
+        if start_index < 0:
+            break
+        rna_list = dnaToRna(dna_string,start_index)
+        protein = generateProtein(rna_list,codonD)
+        proteins.append(protein)
+        i += start_index + len(protein)*3
+    #print(proteins) 
+    return proteins
 
 
 def runWeek1():
