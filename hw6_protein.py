@@ -186,10 +186,10 @@ Returns: dict mapping strs to ints
 def aminoAcidDictionary(aaList):
     aa_dict = {}
     for aa in aaList:
-        if aa in aa_dict:
-            aa_dict[aa] += 1
-        else:
-            aa_dict[aa] = 1
+        if aa not in aa_dict:
+            aa_dict[aa] = 0
+        aa_dict[aa] += 1
+        
         
     #print(aa_dict)
     return aa_dict
@@ -204,8 +204,8 @@ Returns: 2D list of values
 def findAminoAcidDifferences(proteinList1, proteinList2, cutoff):
     a_acid1 = combineProteins(proteinList1)
     a_acid2 = combineProteins(proteinList2)
-    aa_dict1 = aminoAcidDictionary(proteinList1)
-    aa_dict2 = aminoAcidDictionary(proteinList2)
+    aa_dict1 = aminoAcidDictionary(a_acid1)
+    aa_dict2 = aminoAcidDictionary(a_acid2)
     freq1 = {}
     freq2 = {}
     for acid in aa_dict1:
@@ -215,11 +215,11 @@ def findAminoAcidDifferences(proteinList1, proteinList2, cutoff):
     amino_acids = [] #without Start and Stop amino acids in the list
     for aa in aa_dict1:
         #if aa != "Start" and aa != "Stop":
-            if aa not in amino_acids:
+            if aa not in amino_acids and aa != "Start" and aa != "Stop":
                 amino_acids.append(aa)
     for aa in aa_dict2:
         #if aa != "Start" and aa != "Stop":
-            if aa not in amino_acids:
+            if aa not in amino_acids and aa != "Start" and aa != "Stop":
                 amino_acids.append(aa)
     aa_difference = []
     for acid in amino_acids:
