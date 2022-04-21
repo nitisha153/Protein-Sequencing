@@ -337,7 +337,29 @@ Returns: None
 '''
 def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
     import matplotlib.pyplot as plt
-    return
+    import numpy as np
+    # reference link: https://matplotlib.org/stable/gallery/lines_bars_and_markers/barchart.html#sphx-glr-gallery-lines-bars-and-markers-barchart-py
+    x = np.arange(len(freqList1))  # the label locations
+    width = 0.35  # the width of the bars
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(x - width/2, freqList1, width, label=label1)
+    rects2 = ax.bar(x + width/2, freqList2, width, label=label2)
+
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_ylabel('Frequency')
+    ax.set_title('Frequency comparison of Genes')
+    ax.set_xticks(x)
+    ax.set_xticklabels(xLabels)
+    ax.legend()
+
+    #ax.bar_label(rects1, padding=3)
+    #ax.bar_label(rects2, padding=3)
+
+    fig.tight_layout()
+
+    plt.show()
+    return None
 
 
 '''
