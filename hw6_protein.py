@@ -184,7 +184,15 @@ Parameters: list of strs
 Returns: dict mapping strs to ints
 '''
 def aminoAcidDictionary(aaList):
-    return
+    aa_dict = {}
+    for aa in aaList:
+        if aa in aa_dict:
+            aa_dict[aa] += 1
+        else:
+            aa_dict[aa] = 1
+        
+    #print(aa_dict)
+    return aa_dict
 
 
 '''
